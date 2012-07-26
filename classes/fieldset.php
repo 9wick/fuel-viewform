@@ -62,10 +62,17 @@ class Fieldset extends \Fuel\Core\Fieldset{
 
 		$field = new \ViewForm\Fieldset_Field($name, $label, $attributes, $rules, $this);
 		$this->fields[$name] = $field;
-
+        
+        
 		return $field;
 	}
     
+    
+    /**
+     * remove Fieldset_Field
+     * @param type $name
+     * @return \ViewForm\Fieldset 
+     */
     public function remove($name){
         unset($this->fields[$name]);
         return $this;
@@ -89,11 +96,37 @@ class Fieldset extends \Fuel\Core\Fieldset{
         return $this->add($name, $label, $attr, $rules)
                         ->add_rule('in_array', array_keys($options));
     }
-    
+    public function add_text($name, $label = '', array $attributes = array(), array $rules = array()) {
+        return $this->add($name, $label, $attributes, $rules);
+    }
 
     public function add_textarea($name, $label = '', array $attributes = array(), array $rules = array()) {
         $attr = array_merge(array('type' => 'textarea'), $attributes);
         return $this->add($name, $label, $attr, $rules);
+    }
+    
+    public function add_date_select($name, $label = '', $startDate = null, $endDate = null, array $attributes = array(), array $rules = array()){
+        
+        
+        $years = array();
+        for($i = 2010; $i <= 2012; $i++){
+            $years[$i] = $i;
+        }
+        $this->add_select($name . '_year', $label . '(year)', $years);
+        $months = array();
+        for($i = 1; $i <= 12; $i++){
+            $months[$i] = $i;
+        }
+        $this->add_select($name . '_month', $label . '(month)', $months);
+        
+        $days = array();
+        for($i = 1; $i <= 31; $i++){
+            $days[$i] = $i;
+        }
+        $this->add_select($name . '_day', $label . '(day)', $days);
+        $this->add_text($name, $label, $attributes, $rules)->add_rule('date',$name);
+        return $this;
+        
     }
     
     

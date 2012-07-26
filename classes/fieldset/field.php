@@ -129,4 +129,22 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field{
 		return (bool)$this->error();
     }
     
+    
+    public function value_text(){
+        $value = $this->value;
+		switch($this->type)
+		{
+			case 'hidden':
+				break;
+			case 'radio':
+            case 'checkbox':
+			case 'select':
+                $value = $this->options[$this->value];
+				break;
+			
+		}
+
+        return $value;
+        
+    }
 }
