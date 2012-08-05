@@ -87,7 +87,7 @@ class Fieldset extends \Fuel\Core\Fieldset {
     public function add_checkbox($name, $label = '', $options = array(), array $attributes = array(), array $rules = array()) {
         $attr = array_merge(array('options' => $options, 'type'    => 'checkbox'), $attributes);
         return $this->add($name, $label, $attr, $rules)
-                        ->add_rule('in_array', $options)
+                        ->add_rule('allow_emplty_in_array', array_keys($options))
                         ->add_rule('not_required_array');
     }
 
