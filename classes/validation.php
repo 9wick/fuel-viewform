@@ -11,7 +11,8 @@ class Validation extends \Fuel\Core\Validation {
         if (!checkdate($month, $day, $year)) {
             return false;
         }
-        return $year . "-" . $month . "-" . $day;
+        
+        return mktime(0, 0, 0,  $month , $day, $year);
     }
 
     public function _validation_date_start($val, $prefix, $startDate) {
@@ -22,6 +23,7 @@ class Validation extends \Fuel\Core\Validation {
         if ($date < $startDate) {
             return false;
         }
+        return true;
     }
 
     public function _validation_date_end($val, $prefix, $endDate) {
@@ -32,6 +34,7 @@ class Validation extends \Fuel\Core\Validation {
         if ($endDate < $date) {
             return false;
         }
+        return true;
     }
 
     
