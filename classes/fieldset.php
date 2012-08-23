@@ -111,11 +111,18 @@ class Fieldset extends \Fuel\Core\Fieldset {
         return $this->add($name, $label, $attr, $rules);
     }
 
-    public function add_date_select($name, $label = '', $startDate = null, $endDate = null, array $attributes = array(), array $rules = array()) {
-
+    public function add_date_select($name, $label = '', $startYear = null, $endYear = null, array $attributes = array(), array $rules = array()) {
 
         $years = array();
-        for($i = 2012; $i <= 2016; $i++){
+        if((int)$startYear < 1000){
+            $startYear = date('Y') + $startYear;
+        }
+        
+        if((int)$endYear < 1000){
+            $endYear = date('Y') + $endYear;
+        }
+        
+        for($i = $startYear; $i <= $endYear; $i++){
             $years[$i] = $i;
         }
         $this->add_select($name . '_year', $label . '(year)', $years);
@@ -131,6 +138,7 @@ class Fieldset extends \Fuel\Core\Fieldset {
         }
         $this->add_select($name . '_day', $label . '(day)', $days);
         $this->add_text($name, $label, $attributes, $rules)->add_rule('date', $name);
+        
         return $this;
         
     }
