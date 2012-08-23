@@ -26,7 +26,7 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
                 break;
             case 'radio': case 'checkbox':
                 if ($this->options) {
-                    $build_field = array();
+                    $build_field = '';
                     $i = 0;
                     foreach ($this->options as $value => $label) {
                         $attributes         = $baseAttributes;
@@ -46,8 +46,8 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
                             $attributes['id'] = null;
                         }
 
-                        $build_field[$form->label($label, $attributes['id'])] = $this->type == 'radio' ? $form->radio($attributes) : $form->checkbox($attributes);
-
+                        $build_field .= $this->type == 'radio' ? $form->radio($attributes) : $form->checkbox($attributes);
+                        $build_field .= $form->label($label , $this->name . '_' . $i) . '&nbsp;';
                         $i++;
                     }
                 } else {
