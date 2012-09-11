@@ -18,8 +18,7 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
         }
 
         $baseAttributes = array_merge($this->attributes, $attr);
-        $form           = $this->fieldset()->form();
-
+      
         switch ($this->type) {
             case 'hidden':
                 $build_field = $form->hidden($this->name, $this->value, $baseAttributes);
@@ -59,7 +58,16 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
                 $name        = $this->name;
                 unset($attributes['type']);
                 array_key_exists('multiple', $attributes) and $name .= '[]';
-                $build_field = $form->select($name, $this->value, $this->options, $attributes);
+                $options = $this->options;
+                if($form->get_config('non_select_text', null) != null){
+                    $key = $form->get_config('non_select_key', 0);
+                    if(!isset($this->options[$key])){
+                        $nonSelect = array($key => $form->get_config('non_select_text', null) );
+                        $options = array_merge($nonSelect , $options);            
+                    }
+                }
+                
+                $build_field = $form->select($name, $this->value, $options, $attributes);
                 break;
             case 'textarea':
                 $attributes  = $baseAttributes;
@@ -124,6 +132,14 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
         }
 
         return $value;
+    }
+
+    /**
+     * shortcut of add_rule('required');
+     * @return self
+     */
+    public function required() {
+        return $this->add_rule('required');
     }
 
 }

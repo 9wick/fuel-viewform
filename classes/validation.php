@@ -69,5 +69,15 @@ class Validation extends \Fuel\Core\Validation {
             return array();
         }
     }
+    public function _validation_default_select_filter($val) {
+        //$config = \Config::load('form');
+        $key = $this->fieldset()->form()->get_config('non_select_key', null);
+        if($key !== null &&  $key == $val) {
+        //if(isset($config['non_select_key']) && $config['non_select_key'] != null && $val == $config['non_select_text']){
+            return null;
+        }
+        return true;
+    }
+
 
 }
