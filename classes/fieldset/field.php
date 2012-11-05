@@ -136,10 +136,39 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
 
     /**
      * shortcut of add_rule('required');
-     * @return self
+     * @return Fieldset_Field
      */
     public function required() {
         return $this->add_rule('required');
     }
+    
+    /**
+     * shortcut of add_rule('max_length', $num);
+     * @return Fieldset_Field
+     */
+    public function max_length($num) {
+        return $this->add_rule('max_length',$num);
+    }
+    
+    /**
+     * shortcut of add_rule('min_length', $num);
+     * @return Fieldset_Field
+     */
+    public function min_length($num) {
+        return $this->add_rule('min_length',$num);
+    }
+    
+    
+    /**
+     * shortcut of add_rule('valid_email');
+     * @return Fieldset_Field
+     */
+    public function valid_email() {
+        return $this->add_rule('valid_email');
+    }
+    
+    
+    
+    
 
 }
