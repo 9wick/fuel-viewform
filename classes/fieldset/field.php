@@ -135,6 +135,14 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
     }
 
     /**
+     * Descriptionを表示する
+     * @return string
+     */
+    public function description_text() {
+        return $this->description;
+    }
+
+    /**
      * shortcut of add_rule('required');
      * @return Fieldset_Field
      */
