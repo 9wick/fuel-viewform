@@ -127,7 +127,7 @@ class Fieldset_Field extends \Fuel\Core\Fieldset_Field {
             case 'radio':
             case 'checkbox':
             case 'select':
-                $value = $this->options[$this->value];
+                $value = \Arr::get($this->options, '' . $value);
                 break;
         }
 
